@@ -83,6 +83,7 @@
     justify-content: center;
     gap: 15px;
     cursor: pointer;
+    border: 1px solid transparent;
 }
 
 .card:hover {

@@ -39,7 +39,7 @@
     cursor: pointer;
     box-shadow: 0px 34px 44px 0px #D5DBE470;
     background-color: var(--color-white);
-    border: none;
+    border: 1px solid transparent;
     border-radius: 10px;
 }
 
