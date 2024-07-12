@@ -7,10 +7,6 @@
     padding: 40px 7vw;
     box-sizing: border-box;
     gap: 40px;
-
-
-    /* for only adjustment remove it after carousel place correctly */
-    margin-top: 70px;
 }
 
 .heading {

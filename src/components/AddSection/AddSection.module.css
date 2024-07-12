@@ -1,0 +1,23 @@
+.add_section_wrapper {
+    margin: 140px 7vw 0px;
+    background-color: var(--color-white);
+}
+
+.swiper_slide {
+    height: 200px;
+    width: 400px;
+    border-radius: 20px;
+    border: none;
+}
+
+.swiper_slide img {
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.swiper_buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0px 15px;
+}
