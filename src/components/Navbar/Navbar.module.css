@@ -64,6 +64,14 @@
     border-bottom: 6px solid var(--color-blue-primary);
 }
 
+.button_mui:hover {
+    background-color: var(--color-blue-secondary) !important;
+}
+
+.button_mui:focus {
+    background-color: var(--color-blue-secondary) !important;
+}
+
 @media screen and (max-width: 1250px) {
     .action_wrapper {
         gap: 20px;

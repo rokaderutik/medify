@@ -29,6 +29,7 @@ const Navbar = () => {
                     <ActionButton text='Software for Provider' />
                     <ActionButton text='Facilities' />
                     <Button 
+                        className={styles.button_mui}
                         variant="contained"
                         sx={{ 
                             background: "var(--color-blue-secondary)", 
