@@ -1,6 +1,18 @@
+:root {
+  --color-blue-primary: #2AA7FF;
+  --color-blue-secondary: #2AA8FF;
+  --color-blue-dark1: #102851;
+  --color-blue-dark2: #1B3C74;
+  --color-white: #FFFFFF;
+
+  --background-linear-grad: linear-gradient(81deg, #E7F0FF 9.01%, rgba(232, 241, 255, 0.47) 89.11%);
+
+}
+
 body {
+  background-color: var(--color-white);
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: -apple-system, BlinkMacSystemFont, 'Poppins', 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;

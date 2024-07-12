@@ -1,9 +1,13 @@
-import './App.css';
+import { Route, Routes } from 'react-router';
+import Home from "./Pages/Home/Home";
 
 function App() {
   return (
     <div className="App">
-      medify
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        {/* <Route path="/searchresults" element={""} /> */}
+      </Routes>
     </div>
   );
 }
