@@ -5,17 +5,33 @@ import add2 from "../../assets/add2.png";
 
 // Import Swiper styles
 import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+
+import { Pagination, Navigation, Autoplay } from 'swiper/modules';
 
 export default function AddSection() {
-    const addList = [add1, add2, add1];
+    const addList = [add1, add2, add1, add2];
 
     return (
         <div className={styles.add_section_wrapper}>
             <Swiper
-                spaceBetween={60}
+                spaceBetween={50}
                 slidesPerView={3}
-                onSlideChange={() => console.log('slide change')}
-                onSwiper={(swiper) => console.log(swiper)}
+                loop={true}
+                autoplay={{
+                    delay: 2000,
+                    disableOnInteraction: false,
+                }}
+                // navigation={true}
+                pagination={{
+                    clickable: true,
+                    dynamicBullets: true,
+                }}
+                // scrollbar={{ draggable: true }}
+                modules={[Pagination, Navigation, Autoplay]}
+                // onSlideChange={() => console.log('slide change')}
+                // onSwiper={(swiper) => console.log(swiper)}
             >
                 {
                     addList.map((add, ind) => {
@@ -27,9 +43,10 @@ export default function AddSection() {
                     })
                 }
             </Swiper>
-            <div className={styles.swiper_buttons}>
+            
+            {/* <div className={styles.swiper_buttons}>
                     swiper buttons
-            </div>
+            </div> */}
         </div>
     );
 }
