@@ -8,6 +8,7 @@ import PatientCaringSection from "../../components/PatientCaringSection/PatientC
 import NewsSection from "../../components/NewsSection/NewsSection";
 import OurFamiliesSection from "../../components/OurFamiliesSection/OurFamiliesSection";
 import FAQSection from "../../components/FAQSection/FAQSection";
+import DownloadAppSection from "../../components/DownloadAppSection/DownloadAppSection";
 
 const Home = () => {
 
@@ -23,6 +24,7 @@ const Home = () => {
             <NewsSection />
             <OurFamiliesSection />
             <FAQSection />
+            <DownloadAppSection />
         </div>
     );
 }
