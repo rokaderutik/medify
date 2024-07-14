@@ -7,6 +7,7 @@ import MedicalSpecialistSection from "../../components/MedicalSpecialistSection/
 import PatientCaringSection from "../../components/PatientCaringSection/PatientCaringSection";
 import NewsSection from "../../components/NewsSection/NewsSection";
 import OurFamiliesSection from "../../components/OurFamiliesSection/OurFamiliesSection";
+import FAQSection from "../../components/FAQSection/FAQSection";
 
 const Home = () => {
 
@@ -21,6 +22,7 @@ const Home = () => {
             <PatientCaringSection />
             <NewsSection />
             <OurFamiliesSection />
+            <FAQSection />
         </div>
     );
 }
