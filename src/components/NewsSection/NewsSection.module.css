@@ -1,0 +1,31 @@
+.section_wrapper {
+    padding: 30px 7vw;
+    box-sizing: border-box;
+    background-color: var(--color-white);
+    text-align: center;
+    font-size: 16px;
+
+    height: 500px;
+}
+
+.top_subheading {
+    margin: 0px;
+    font-size: 1em;
+    font-weight: 600;
+    color: var(--color-blue-primary);
+}
+
+.heading {
+    margin: 0px;
+    font-size: 3em;
+    font-weight: 600;
+    color: var(--color-blue-dark2);
+}
+
+.cards_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5em;
+    
+}

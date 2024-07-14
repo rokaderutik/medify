@@ -1,5 +1,5 @@
 .section_wrapper {
-    margin: 30px 7vw 20px;
+    margin: 30px 5vw 20px;
     background-color: var(--color-white);
     height: 620px;
 }
@@ -39,6 +39,7 @@
     border-radius: 50% 50% 4px 4px;
     box-sizing: border-box;
     padding: 30px 16px 0px;
+    box-shadow: 0px 15px 55px -10px #00000017;
 }
 
 .image_wrapper img {
