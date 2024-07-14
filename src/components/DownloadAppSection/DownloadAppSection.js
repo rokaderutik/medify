@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styles from "./DownloadAppSection.module.css";
 import { Button } from "@mui/material";
 import { ReactComponent as DownloadArrow } from "../../assets/download_arrow.svg";
@@ -7,6 +8,7 @@ import { ReactComponent as MobileBody } from "../../assets/mobile_body.svg";
 import { ReactComponent as MobileContent } from "../../assets/mobile_inside.svg";
 
 export default function DownloadAppSection() {
+    const [inputData, setInputData] = useState('');
 
     return (
         <div className={styles.section_wrapper}>
@@ -38,6 +40,8 @@ export default function DownloadAppSection() {
                         <input 
                             type="number"
                             placeholder="Enter phone number"
+                            value={inputData}
+                            onChange={(e) => { setInputData(e.target.value)}}
                         />
                     </div>
                     <Button
@@ -48,6 +52,7 @@ export default function DownloadAppSection() {
                             textTransform: "none",
                             padding: "6px"
                         }}
+                        onClick={() => setInputData('')}
                     >
                         Send SMS
                     </Button>

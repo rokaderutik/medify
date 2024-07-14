@@ -9,6 +9,7 @@ import NewsSection from "../../components/NewsSection/NewsSection";
 import OurFamiliesSection from "../../components/OurFamiliesSection/OurFamiliesSection";
 import FAQSection from "../../components/FAQSection/FAQSection";
 import DownloadAppSection from "../../components/DownloadAppSection/DownloadAppSection";
+import Footer from "../../components/Footer/Footer";
 
 const Home = () => {
 
@@ -25,6 +26,7 @@ const Home = () => {
             <OurFamiliesSection />
             <FAQSection />
             <DownloadAppSection />
+            <Footer />
         </div>
     );
 }

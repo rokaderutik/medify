@@ -1,0 +1,116 @@
+.setion_wrapper {
+    padding: 3.5em 7vw 0px;
+    font-size: 16px;
+    box-sizing: border-box;
+    background-color: var(--color-blue-dark2);
+
+    /* height: 400px; */
+}
+
+.all_actions_wrapper {
+    height: 12em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 3em;
+    box-sizing: border-box;
+}
+
+.first_half {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.second_half {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    justify-content: start;
+    color: var(--color-blue-secondary);
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.logo_social_section {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
+}
+
+.social_icon {
+    height: 2.25em;
+    width: 2.25em;
+    border: 1px solid #FFFFFF;
+    border-radius: 50%;
+    background-color: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1em;
+}
+
+.list {
+    color: var(--color-white);
+    font-size: 1em;
+    height: 100%;
+    width: 100%;
+}
+
+ul {
+    margin: 0px;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
+    height: 100%;
+}
+  
+li {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 1em;
+}
+  
+li::before {
+    content: ">";
+    font-size: 1em;
+    font-weight: 900;
+}
+
+.copyright {
+    width: 100%;
+    border-top: 1px solid #FFFFFF1A;
+    font-size: 1em;
+    font-weight: 400;
+    color: var(--color-white);
+    margin: 0px;
+    padding: 1.5em 0px;
+}
+
+@media screen and (max-width: 1050px) {
+    .setion_wrapper {
+        font-size: 14px;
+    }
+}
