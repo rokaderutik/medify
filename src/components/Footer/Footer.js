@@ -35,11 +35,11 @@ export default function Footer() {
                 <div className={styles.second_half}>
                     <div className={styles.list}>
                         <ul>
-                            <li>About Us</li>
-                            <li>Our Pricing</li>
-                            <li>Our Gallery</li>
-                            <li>Appointment</li>
-                            <li>Privacy Policy</li>
+                            <li>Orthology</li>
+                            <li>Neurology</li>
+                            <li>Dental Care</li>
+                            <li>Opthalmology</li>
+                            <li>Cardiology</li>
                         </ul>
                     </div>
                     <div className={styles.list}>

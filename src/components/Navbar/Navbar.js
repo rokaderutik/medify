@@ -1,4 +1,5 @@
 import { Button } from "@mui/material";
+import { useLocation } from "react-router";
 import styles from "./Navbar.module.css";
 import logo from "../../assets/logo.png";
 
@@ -10,6 +11,8 @@ const ActionButton = ({ text, onClick }) => {
 };
 
 const Navbar = () => {
+    const location = useLocation();
+    const path = location.pathname;
 
     return (
         <div>
@@ -17,7 +20,7 @@ const Navbar = () => {
                 The health and well-being of our patients and their health care team will always 
                 be our priority, so we follow the best practices for cleanliness.
             </div>
-            <div className={styles.navbar_div}>
+            <div className={ `${styles.navbar_div} ${path === "/" ? "" : styles.navbar_div_result_page }` }>
                 <div className={styles.logo}>
                     <img src={logo} alt="medify logo" /><span>Medify</span>
                 </div>

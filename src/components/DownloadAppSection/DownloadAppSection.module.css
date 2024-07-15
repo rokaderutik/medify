@@ -169,6 +169,7 @@ input[type=number]{
 .appstore_btn_wrapper svg {
     height: 4em;
     width: 12.5em;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 1250px) {

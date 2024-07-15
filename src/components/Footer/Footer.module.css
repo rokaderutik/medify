@@ -60,6 +60,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 .social_wrapper {
@@ -91,6 +92,7 @@ li {
     align-items: center;
     justify-content: start;
     gap: 1em;
+    cursor: pointer;
 }
   
 li::before {

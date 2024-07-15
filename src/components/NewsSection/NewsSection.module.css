@@ -41,6 +41,7 @@
 
     border: 1px solid #00000012;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .card_image {

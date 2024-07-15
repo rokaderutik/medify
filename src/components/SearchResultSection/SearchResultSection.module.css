@@ -1,0 +1,256 @@
+.section_wrapper {
+    background: var(--background-linear-grad);
+}
+
+.top_blue_container {
+    width: 100%;
+    height: 12vh;
+    background: linear-gradient(91.75deg, #2AA7FF 1.4%, #0C8CE6 100.57%);
+    border-radius: 0px  0px 16px 16px;
+}
+
+.content_wrapper {
+    padding: 15vh 7vw 10vh;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.heading {
+    margin: 0px 1em;
+    font-size: 1.5em;
+    font-weight: 500;
+    color: #000000;
+}
+
+.subheading_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    font-size: 1em;
+    font-weight: 400;
+    color: #787887;
+    padding-left: 1em;
+    gap: 2em;
+}
+
+.subheading_wrapper p {
+    margin: 7px 0px;
+}
+
+.card_list_and_add_wrapper {
+    display: flex;
+    margin-top: 16px;
+    gap: 16px;
+    justify-content: space-between;
+}
+
+.list_wrapper {
+    width: 70%;
+}
+
+.add_baner {
+    border-radius: 15px;
+    object-fit: cover;
+    height: 16em;
+    overflow: hidden;
+    width: 26%;
+}
+
+/* card css starts */
+.card_wrapper {
+    display: flex;
+    align-items: start;
+    justify-content: space-evenly;
+    border-radius: 15px;
+    background-color: var(--color-white);
+    padding: 3em 2em 1.5em;
+    gap: 1.8em;
+    box-sizing: border-box;
+    height: 16em;
+    width: 100%;
+
+    font-size: 16px;
+}
+
+.card_image {
+    background-color: #8CCFFF;
+    height: 7.75em;
+    width: 7.75em;
+    border-radius: 50%;
+    padding-bottom: 0.7em;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.card_true_mark {
+    position: absolute;
+    right: -6px;
+    bottom: 24%;
+}
+
+.card_name {
+    margin: 0.8em 0px 0.5em;
+    font-size: 1.25em;
+    font-weight: 600;
+    color: #14BEF0;
+}
+
+.card_address {
+    margin: 0px;
+    font-size: 0.875em;
+    font-weight: 700;
+    color: #414146;
+}
+
+.card_para {
+    margin: 0.5em 0px;
+    font-size: 0.875em;
+    font-weight: 400;
+    color: #414146;
+}
+
+.card_para_consulation {
+    margin: 0px;
+    font-size: 0.875em;
+    font-weight: 400;
+    color: #414146;
+}
+
+.free_span {
+    color: #02A401;
+    font-weight: 700;
+}
+
+.amount_span {
+    color: #787887;
+}
+
+.rating {
+    margin-top: 2em;
+    background-color: #00A500;
+    border-radius: 4px;
+    font-size: 0.875em;
+    font-weight: 700;
+    color: var(--color-white);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 1px 6px;
+    width: fit-content;
+}
+
+.card_buttons {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.availabity {
+    font-size: 0.875em;
+    font-weight: 500;
+    color: #01A400;
+}
+
+.button_mui:hover {
+    background-color: var(--color-blue-secondary) !important;
+}
+
+.button_mui:focus {
+    background-color: var(--color-blue-secondary) !important;
+}
+
+/* booking card css starts */
+.booking_wrapper {
+    width: 100%;
+    height: 17rem;
+}
+
+.pagination {    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pagination_btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 3em;
+    width: 3em;
+    border: 1px solid #E0E0E4;
+    border-radius: 50%;
+}
+
+.pagination_btn svg {
+    height: 1.8em;
+    width: 1.8em;
+}
+
+.pagination_date_row {
+    width: 100%;
+}
+
+.pagination_date_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 33%;
+    height: 3.5em;
+    font-family: 'Lato';
+    border-bottom: 4px solid transparent;
+}
+
+.pagination_date_wrapper h3 {
+    margin: 0px;
+    font-size: 1em;
+    font-weight: 700;
+    color: #414146;
+}
+
+.pagination_date_wrapper h4 {
+    margin: 0px;
+    font-size: 0.75em;
+    font-weight: 400;
+    color: #01A400;
+}
+
+.slot_row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 0.875em;
+    font-weight: 400;
+    font-family: 'Lato';
+    color: #414146;
+
+    gap: 20px;
+}
+
+.slot_row_times {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1.5em;
+    flex-wrap: wrap;
+}
+
+.slot_row p {
+    width: 6em;
+}
+
+.slot_button {
+    height: 2.3em;
+    width: 6em;
+    
+    color: var(--color-blue-primary);
+    border: 1px solid var(--color-blue-primary);
+    border-radius: 4px;
+    background-color: transparent;
+}
