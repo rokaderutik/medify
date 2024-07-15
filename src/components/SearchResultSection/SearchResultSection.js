@@ -7,120 +7,329 @@ import { ReactComponent as LikeThumb } from "../../assets/like_thumb.svg";
 import add_baner from "../../assets/results_add_baner.png";
 import { ReactComponent as LeftArrow } from "../../assets/leftArrow.svg";
 import { ReactComponent as RightArrow } from "../../assets/rightArrow.svg";
+import { useRef, useState } from "react";
+import { useSnackbar } from "notistack";
+import { useLocation } from "react-router";
 
-function SlotButton({ time }) {
-
+function SlotButton({ time, setBookingData, bookingData }) {
+    function handleChange(name, value) {
+        setBookingData({
+            ...bookingData,
+            [name]: value
+        });
+    }
+    
     return (
-        <button className={styles.slot_button}>
+        <button 
+            className={styles.slot_button}
+            onClick={() => handleChange('time', time)}
+        >
             {time}
         </button>
     );
 }
 
-const BookingCard = () => {
-    
+const BookingCard = ({ bookingData, setBookingData }) => {
+
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const days = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat'];
+    const morningSlots = ['10:30 AM', '11:00 AM', '11:30 AM'];
+    const afternoonSlots = ['12:00 PM', '12:30 PM', '01:30 PM', '02:00 PM', '02:30 PM'];
+    const eveningSlots = ['06:00 PM', '06:30 PM', '07:00 PM', '07:30 PM']
+
     const dateList = new Array(7);  
     for(let i = 0; i < 7; i++) {
         let currentDay = new Date();
         currentDay.setDate(currentDay.getDate() + i);
-        dateList[i] = currentDay;
+        
+        const month = currentDay.getMonth();
+        const date = currentDay.getDate();
+        const day = currentDay.getDay();
+        dateList[i] = {
+            date: currentDay,
+            dateFormated: `${days[day]}, ${date} ${months[month]}`,
+            ind: i,
+        };
     }
 
+    const maxDates = 3;
+    let start = useRef(0);
+    const [currentDateDisplayList, setCurrentDateDisplayList] = useState(dateList.slice(0, 3));
+    
+    function handleNext() {
+        if(start.current < 4) {
+            start.current++;
+            setCurrentDateDisplayList(dateList.slice(start.current, start.current + 3));
+        } else {
+            return;
+        }
+    }
 
+    function handlePrev() {
+        if(start.current > 0) {
+            start.current--;
+            setCurrentDateDisplayList(dateList.slice(start.current, start.current + 3));
+        } else {
+            return;
+        }
+    }
+
+    function handleChange(name, value) {
+        setBookingData({
+            ...bookingData,
+            [name]: value
+        });
+    }
+    
     return (
         <div className={styles.booking_wrapper}>
             <div className={styles.pagination}>
-                <div className={styles.pagination_btn}>
+                <button 
+                    className={styles.pagination_btn}
+                    onClick={handlePrev}
+                    disabled={currentDateDisplayList[0].ind === 0}
+                >
                     <LeftArrow />
-                </div>
+                </button>
                 <div className={styles.pagination_date_row}>
-
-                    <div className={styles.pagination_date_wrapper}>
-                        <h3>Today</h3>
-                        <h4>11 Slots Available</h4>
-                    </div>
-                    
+                    {
+                        currentDateDisplayList.map((day) => {
+                            return (
+                                <button 
+                                    key={day.ind}
+                                    className={styles.pagination_date_wrapper} 
+                                    onClick={() => handleChange('date', day.date)}
+                                >
+                                    <h3>{day.ind > 1 ? day.dateFormated : (day.ind === 0 ? "Today" : "Tomorrow")}</h3>
+                                    <h4>{11} Slots Available</h4>
+                                </button>
+                            );
+                        })
+                    }
                 </div>
-                <div className={styles.pagination_btn}>
+                <button 
+                    className={styles.pagination_btn}
+                    onClick={handleNext}
+                    disabled={currentDateDisplayList[2].ind === 6}
+                >
                     <RightArrow />
-                </div>
+                </button>
             </div>
             <div className={styles.slot_row}>
                 <p>Morning</p>
                 <div className={styles.slot_row_times}>
-                    <SlotButton time="11:00 AM"/>
-                    <SlotButton time="11:30 AM"/>
+                    {
+                        morningSlots.map((time) => {
+                            return <SlotButton 
+                                key={time}
+                                time={time} 
+                                bookingData={bookingData} 
+                                setBookingData={setBookingData} 
+                            />
+                        })
+                    }
                 </div>
             </div>
             <hr />
             <div className={styles.slot_row}>
                 <p>Afternoon</p>
                 <div className={styles.slot_row_times}>
-                    <SlotButton time="12:00 PM"/>
-                    <SlotButton time="12:30 PM"/>
-                    <SlotButton time="01:30 PM"/>
-                    <SlotButton time="02:00 PM"/>
-                    <SlotButton time="02:30 PM"/>
+                    {
+                        afternoonSlots.map((time) => {
+                            return <SlotButton 
+                                key={time}
+                                time={time} 
+                                bookingData={bookingData} 
+                                setBookingData={setBookingData} 
+                            />
+                        })
+                    }
                 </div>
             </div>
             <hr />
             <div className={styles.slot_row}>
                 <p>Evening</p>
                 <div className={styles.slot_row_times}>
-                    <SlotButton time="06:00 PM"/>
-                    <SlotButton time="06:30 PM"/>
-                    <SlotButton time="07:00 PM"/>
-                    <SlotButton time="07:30 PM"/>
+                    {
+                        eveningSlots.map((time) => {
+                            return <SlotButton 
+                                key={time}
+                                time={time} 
+                                bookingData={bookingData} 
+                                setBookingData={setBookingData} 
+                            />
+                        })
+                    }
                 </div>
             </div>
         </div>
     );
 }
 
-const ResultCard = ({ hosName, hosAdd, city, state, zipCode, rating }) => {
+const ResultCard = ({ setBookingsList, bookingsList, hospitalData, bookedDate, bookedTime }) => {
+    const { pathname } = useLocation();
+    const { enqueueSnackbar } = useSnackbar();
+    const {
+        "Hospital Name": hosName,
+        Address: hosAdd,
+        City: city,
+        State: state,
+        "ZIP Code": zipCode,
+        "Hospital overall rating": rating
+    } = hospitalData;
+    
+    // to open booking section
+    const [isSlotBookingOpen, setIsSlotBookingOpen] = useState(false);
+
+    const [bookingData, setBookingData] = useState({
+        hospitalData: hospitalData,
+        date: '',
+        time: ''
+    }); //for storing booking date and time
+
+    function handleBooking() {
+        if(bookingData.date === '' && bookingData.time === '') {
+            enqueueSnackbar("Select the date & time", { variant: "warning" });
+            return;
+        } else if(bookingData.date === '') {
+            enqueueSnackbar("Select the date", { variant: "warning" });
+            return;
+        } else if(bookingData.time === '') {
+            enqueueSnackbar("Select the time", { variant: "warning" });
+            return;
+        }
+
+        enqueueSnackbar(
+            `Booking done for ${bookingData.date.getDate()}/${bookingData.date.getMonth()+1}/
+            ${bookingData.date.getFullYear()}`, 
+            { variant: "success" }
+        );
+        setBookingsList([
+            ...bookingsList,
+            bookingData
+        ]);
+    }
+
+    function formatDate(date) {
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const currDate = new Date(date);
+        const month = currDate.getMonth();
+
+        return `${currDate.getDate()} ${months[month]} ${currDate.getFullYear()}`;
+    }
 
     return (
         <div>
-        <div className={styles.card_wrapper}>
-            <div className={styles.card_image}>
-                <CardIcon />
-                <TrueMarkBlue className={styles.card_true_mark}/>
-            </div>
-            <div>
-                <h3 className={styles.card_name}>{hosName}</h3>
-                <h4 className={styles.card_address}>{hosAdd}, {city}, {state}-{zipCode}.</h4>
-                <p className={styles.card_para}>Smilessence Center for Advanced Dentistry + 1 more</p>
-                <p className={styles.card_para_consulation}>
-                    <span className={styles.free_span}>FREE </span>
-                    <span className={styles.amount_span}>₹500 </span>
-                    Consultation fee at clinic
-                </p>
-                
-                <div className={styles.rating}>
-                    <LikeThumb />
-                    <span>{rating}</span>
+            <div className={styles.card_wrapper}>
+                <div className={styles.card_image}>
+                    <CardIcon />
+                    <TrueMarkBlue className={styles.card_true_mark}/>
                 </div>
+                <div>
+                    <h3 className={styles.card_name}>{hosName}</h3>
+                    <h4 className={styles.card_address}>{hosAdd}, {city}, {state}-{zipCode}.</h4>
+                    <p className={styles.card_para}>Smilessence Center for Advanced Dentistry + 1 more</p>
+                    {
+                        pathname === '/searchresults' &&
+                        <p className={styles.card_para_consulation}>
+                            <span className={styles.free_span}>FREE </span>
+                            <span className={styles.amount_span}>₹500 </span>
+                            Consultation fee at clinic
+                        </p>
+                    }
+                    <div className={styles.rating}>
+                        <LikeThumb />
+                        <span>{rating}</span>
+                    </div>
+                </div>
+                
+                { 
+                    pathname === '/searchresults' &&
+                    <div className={styles.card_buttons}>
+                        <p className={styles.availabity}>Available Today</p>
+                        <Button 
+                            className={styles.button_mui}
+                            variant="contained"
+                            sx={{ 
+                                background: "var(--color-blue-secondary)", 
+                                textTransform: 'none'
+                            }}
+                            onClick={() => setIsSlotBookingOpen(prev => !prev)}
+                        >
+                            { isSlotBookingOpen ? "Cancle Visit" : "Book FREE Center Visit" }
+                        </Button>
+                        {
+                            isSlotBookingOpen &&
+                            <Button 
+                                className={styles.button_mui}
+                                variant="contained"
+                                sx={{ 
+                                    background: "var(--color-blue-secondary)", 
+                                    textTransform: 'none',
+                                    marginTop: "16px"
+                                }}
+                                onClick={handleBooking}
+                            >
+                                Confirm Booking
+                            </Button>
+                        }
+                    </div>
+                }
+                
+                {
+                    pathname === "/bookings" && 
+                    <div className={styles.booked_time_date_wrapper}>
+                        <div className={styles.time_chip}>{bookedTime}</div>
+                        <div className={styles.date_chip}>{formatDate(bookedDate)}</div>
+                    </div>
+                }
             </div>
-            <div className={styles.card_buttons}>
-                <p className={styles.availabity}>Available Today</p>
-                <Button 
-                    className={styles.button_mui}
-                    variant="contained"
-                    sx={{ 
-                        background: "var(--color-blue-secondary)", 
-                        textTransform: 'none'
-                    }}
-                >
-                    Book FREE Center Visit
-                </Button>
-            </div>
-        </div>
-        <BookingCard />
+            {
+                isSlotBookingOpen && 
+                <BookingCard 
+                    className={styles.card_wrapper} 
+                    bookingData={bookingData}
+                    setBookingData={setBookingData}
+                />
+            }
         </div>
     );
 };
 
-const SearchResultSection = ({ resultsList, stateName, cityName }) => {
+const SearchResultSection = ({ resultsList, cityName, setBookingsList, bookingsList }) => {
+    const { pathname } = useLocation();
+    
+    if(pathname === '/bookings') {
+        return (
+            <div className={styles.section_wrapper}>
+                <div className={styles.top_blue_container}>
+                    My Bookings
+                </div>
+                <div className={styles.content_wrapper}>
+                    <div className={styles.card_list_and_add_wrapper}>
+                        <div className={styles.list_wrapper}>
+                            {
+                                resultsList.map((item) => {
+                                    return (
+                                        <ResultCard 
+                                            key={item.hospitalData["Provider ID"]}
+                                            hospitalData={item.hospitalData}
+                                            bookedDate={item.date}
+                                            bookedTime={item.time}
+                                        />
+                                    );
+                                })
+                            }
+                            
+                        </div>
+                        <div className={styles.add_baner}>
+                            <img src={add_baner} alt="advertisement" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className={styles.section_wrapper}>
@@ -138,12 +347,9 @@ const SearchResultSection = ({ resultsList, stateName, cityName }) => {
                                 return (
                                     <ResultCard 
                                         key={item["Provider ID"]}
-                                        hosName={item["Hospital Name"]}
-                                        hosAdd={item["Address"]}
-                                        city={item["City"]}
-                                        state={item["State"]}
-                                        zipCode={item["ZIP Code"]}
-                                        rating={item["Hospital overall rating"]}
+                                        setBookingsList={setBookingsList}
+                                        bookingsList={bookingsList}
+                                        hospitalData={item}
                                     />
                                 );
                             })

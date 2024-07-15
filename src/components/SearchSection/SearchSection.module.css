@@ -10,6 +10,19 @@
     box-shadow: 6px 6px 35px 0px #1028511C;
 }
 
+.search_section_wrapper_bookings {
+    width: 50vw;
+    /* height: 400px; */
+    box-sizing: border-box;
+    margin: 0px 7vw;
+    padding: 50px 0px;
+    background-color: var(--color-white);
+    border: none;
+    border-radius: 15px;
+    box-shadow: 6px 6px 35px 0px #1028511C;
+    right: 0%;
+}
+
 .search_section_postion_home {
     position: absolute;
     top: 68%;

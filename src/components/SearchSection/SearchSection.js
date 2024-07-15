@@ -21,7 +21,8 @@ const Card = ({ Icon, title }) => {
     );
 };
 
-const SearchSection = ({ setResultsList, setCityName }) => {
+// resultsList contains bookings
+const SearchSection = ({ setResultsList, setCityName, resultsList }) => {
     const location = useLocation();
     const path = location.pathname;
 
@@ -122,6 +123,59 @@ const SearchSection = ({ setResultsList, setCityName }) => {
         }
 
     };
+
+    if(path === '/bookings') {
+        return (
+            <div className={` ${styles.search_section_wrapper_bookings} 
+                ${styles.search_section_postion_other_pages} 
+                `}
+            >
+                <div className={styles.searchbars_button_wrapper}>
+                    <div className={styles.searchbar_div}>
+                        <input 
+                            className={styles.searchbar}
+                            type="text"
+                            placeholder="Search By Hospital"
+                        />
+                        {/* changes start */}
+                        <select 
+                            className={styles.searchbar}
+                            name="hospital"
+                            value={""}
+                            onChange={()=>{}}
+                        >
+                            <option></option>
+                            {
+                                resultsList.map((hospital) => {
+                                    return (
+                                        <option 
+                                            key={hospital.hospitalData["Provider ID"]} 
+                                            value={hospital.hospitalData["Hospital Name"]}
+                                        >
+                                            {hospital.hospitalData["Hospital Name"]}
+                                        </option>
+                                    );
+                                })
+                            }
+                        </select>
+                        {/* changes end */}
+                    </div>
+                    <Button
+                        className={styles.button_mui}
+                        variant="contained"
+                        startIcon={<SearchIcon />}
+                        sx={{
+                            background: "var(--color-blue-secondary)",
+                            textTransform: "none",
+                        }}
+                        onClick={handleSearchSubmit}
+                    >
+                        Search
+                    </Button>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className={` ${styles.search_section_wrapper} 

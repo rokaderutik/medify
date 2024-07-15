@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import styles from "./Navbar.module.css";
 import logo from "../../assets/logo.png";
 
@@ -12,7 +12,12 @@ const ActionButton = ({ text, onClick }) => {
 
 const Navbar = () => {
     const location = useLocation();
+    const navigate = useNavigate();
     const path = location.pathname;
+
+    function handleMyBookingClick() {
+        navigate("/bookings");
+    }
 
     return (
         <div>
@@ -38,6 +43,7 @@ const Navbar = () => {
                             background: "var(--color-blue-secondary)", 
                             textTransform: 'none'
                         }}
+                        onClick={handleMyBookingClick}
                     >
                         My Bookings
                     </Button>

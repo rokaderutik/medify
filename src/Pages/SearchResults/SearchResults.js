@@ -16,6 +16,13 @@ export default function SearchResults() {
 
     const [resultsList, setResultsList] = useState([]);
 
+    // set booking list
+    const [bookingsList, setBookingsList] = useState([]);
+    
+    useEffect(() => {
+        localStorage.setItem('bookingsList', JSON.stringify(bookingsList));
+    }, [bookingsList]);
+
     useEffect(() => {
         if(!state) {
             navigate('/');
@@ -41,22 +48,6 @@ export default function SearchResults() {
 
     }, []);
 
-    // useEffect(() => {
-    //     async function fetchData() {
-
-    //         try {
-    //             const url = `https://meddata-backend.onrender.com/data?state=${stateName}&city=${cityName}`;
-    //             const res = await fetch(url);
-    //             const data = await res.json();
-    //             setResultsList(data);
-    //         } catch(e) {
-                
-    //         }
-    //     }
-
-    //     fetchData();
-    // }, [cityName]);
-
     return (
         <div>
             <Navbar />
@@ -67,6 +58,8 @@ export default function SearchResults() {
             <SearchResultSection 
                 resultsList={resultsList}
                 cityName={cityName}
+                setBookingsList={setBookingsList}
+                bookingsList={bookingsList}
             />
             <FAQSection />
             <DownloadAppSection />

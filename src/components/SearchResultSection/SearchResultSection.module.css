@@ -7,6 +7,12 @@
     height: 12vh;
     background: linear-gradient(91.75deg, #2AA7FF 1.4%, #0C8CE6 100.57%);
     border-radius: 0px  0px 16px 16px;
+    color: var(--color-white);
+    /* font-family: 'Ubuntu'; */
+    font-weight: 400;
+    font-size: 40px;
+    box-sizing: border-box;
+    padding: 8px 10%;
 }
 
 .content_wrapper {
@@ -46,6 +52,9 @@
 
 .list_wrapper {
     width: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
 }
 
 .add_baner {
@@ -92,7 +101,7 @@
 }
 
 .card_name {
-    margin: 0.8em 0px 0.5em;
+    margin: 0.2em 0px 0.4em;
     font-size: 1.25em;
     font-weight: 600;
     color: #14BEF0;
@@ -129,7 +138,7 @@
 }
 
 .rating {
-    margin-top: 2em;
+    margin-top: 1em;
     background-color: #00A500;
     border-radius: 4px;
     font-size: 0.875em;
@@ -164,10 +173,42 @@
     background-color: var(--color-blue-secondary) !important;
 }
 
+.booked_time_date_wrapper {
+    height: 100%;
+    display: flex;
+    align-items: start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-family: 'Lato';
+    font-size: 0.875;
+}
+
+.time_chip {
+    padding: 0.25em 0.5em;
+    font-weight: 400;
+    color: var(--color-blue-primary);
+    border: 1px solid var(--color-blue-primary);
+    border-radius: 4px;
+}
+
+.date_chip {
+    padding: 0.25em 0.5em;
+    font-weight: 700;
+    color: #007100;
+    border: 1px solid #00A500;
+    border-radius: 4px;
+}
+
 /* booking card css starts */
 .booking_wrapper {
     width: 100%;
     height: 17rem;
+    border-top: 1px solid #F0F0F5;
+    border-radius: 15px;
+    background-color: var(--color-white);
+    padding: 3em 2em 1.5em;
+    box-sizing: border-box;
 }
 
 .pagination {    
@@ -184,6 +225,9 @@
     width: 3em;
     border: 1px solid #E0E0E4;
     border-radius: 50%;
+    cursor: pointer;
+    background-color: transparent;
+    padding: 0px;
 }
 
 .pagination_btn svg {
@@ -193,6 +237,9 @@
 
 .pagination_date_row {
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .pagination_date_wrapper {
@@ -204,7 +251,14 @@
     width: 33%;
     height: 3.5em;
     font-family: 'Lato';
-    border-bottom: 4px solid transparent;
+    border: none;
+    background-color: transparent;
+    border-bottom: 4px solid #F0F0F5;
+    cursor: pointer;
+}
+
+.pagination_date_wrapper:focus {
+    border-bottom: 4px solid var(--color-blue-primary);
 }
 
 .pagination_date_wrapper h3 {
@@ -253,4 +307,11 @@
     border: 1px solid var(--color-blue-primary);
     border-radius: 4px;
     background-color: transparent;
+    cursor: pointer;
+}
+
+.slot_button:focus {
+    background-color: #01A400;
+    color: var(--color-white);
+    border-color: #01A400;
 }
