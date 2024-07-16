@@ -1,8 +1,8 @@
 import { useLocation } from "react-router";
 import { useNavigate } from "react-router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@mui/material";
-import { enqueueSnackbar, useSnackbar } from "notistack";
+import { useSnackbar } from "notistack";
 import SearchIcon from '@mui/icons-material/Search';
 import styles from "./SearchSection.module.css";
 import Ambulance from "../../assets/Ambulance.png"
@@ -27,14 +27,30 @@ const SearchSection = ({ setResultsList, setCityName, resultsList }) => {
     const path = location.pathname;
 
     const navigate = useNavigate();
+    const { enqueueSnackbar } = useSnackbar();
+
+    const inputRef = useRef(null);  //use for state search and hospital search(on bookings page)
+    const inputRefCity = useRef(null);
+    const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+    const [isCityDropDownOpen, setIsCityDropDownOpen] = useState(false);
 
     const [statesList, setStatesList] = useState([]);
     const [citiesList, setCitiesList] = useState([]);
 
-    const [state, setState] = useState('');
-    const [city, setCity] = useState('');
+    const [stateData, setStateData] = useState({
+        state: '',
+        stateSelectedVal: ''
+    });
+    const [cityData, setCityData] = useState({
+        city: '',
+        citySelectedVal: ''
+    });
+console.log("cityData", cityData)
+    // for bookings search
+    const [hospName, setHospName] = useState('');
+    const [hospSelectedVal, setHospSelectedVal] = useState('');
+    const [currFilterHospitals, setCurrFilterHospitals] = useState([]); //for showing results based on search
 
-    const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
         async function fetchStates() {
@@ -49,14 +65,23 @@ const SearchSection = ({ setResultsList, setCityName, resultsList }) => {
                 });
             }
         }
-
         fetchStates();
+
+        setCurrFilterHospitals(resultsList);
+
+        document.addEventListener("click", toggleDropDown);
+        document.addEventListener("click", toggleDropDownCity);
+        return () => {
+            document.removeEventListener("click", toggleDropDown);
+            document.removeEventListener("click", toggleDropDownCity);
+        }
+
     }, []);
 
     useEffect(() => {
         async function fetchCities() {
             try {
-                const url = `https://meddata-backend.onrender.com/cities/${state}`;
+                const url = `https://meddata-backend.onrender.com/cities/${stateData.state}`;
                 const res = await fetch(url);
                 const data = await res.json();
                 setCitiesList(data);
@@ -66,32 +91,90 @@ const SearchSection = ({ setResultsList, setCityName, resultsList }) => {
                 });
             }
         }
-        if(state !== "") {
+        if(stateData.stateSelectedVal !== "") {
             fetchCities();
         }
         
-    }, [state]);
+    }, [stateData]);
 
-    // console.log(state, citiesList);
-    const handleStateChange = (e) => {
-        setCity('');
-        setState(e.target.value);
+    function toggleDropDown(e) { 
+        setIsDropDownOpen(e && e.target === inputRef.current);
+    }
+
+    function toggleDropDownCity(e) { 
+        setIsCityDropDownOpen(e && e.target === inputRefCity.current);
+    }
+
+    console.log(statesList);
+    const handleStateChange = (name, value) => {
+        setCityData({
+            city: '',
+            citySelectedVal: ''
+        });
+
+        if(name === "stateSelectedVal") {
+            setStateData({
+                state: value,
+                [name]: value
+            });
+        } else {
+            setStateData({
+                ...stateData,
+                [name]: value
+            });
+        }
+        
     };
 
-    const handleCityChange = (e) => {
-        setCity(e.target.value);
+    const handleCityChange = (name, value) => {
+        if(name === "citySelectedVal") {
+            setCityData({
+                city: value,
+                [name]: value
+            });
+        } else {
+            setCityData({
+                ...cityData,
+                [name]: value
+            });
+        }
     };
+
+    const handleHospChange = (e) => {
+        setHospName(e.target.value);
+    };
+
+    const handleHospSelectChange = (hospName) => {
+        setHospName(hospName);
+        setHospSelectedVal(hospName);
+        setIsDropDownOpen(false);
+    };
+    // console.log('1*/',currFilterHospitals, hospName)
+    const handleHospitalSearch = () => {
+        if(hospName === "" && hospSelectedVal === "") {
+            enqueueSnackbar("Choose the Hospital", {
+                variant: "warning"
+            });
+            return;
+        }
+
+        // const currentHosp = resultsList.filter((hosp) => { 
+        //    return hosp.hospitalData["Hospital Name"].toLowerCase().includes(hospName.toLowerCase());
+        // });
+        // console.log('chan',currFilterHospitals, hospName)
+        // setCurrFilterHospitals(currentHosp);
+    }
 
     const handleSearchSubmit = () => {
-        if(state === "" && city === "") {
+        if(stateData.state === "" && cityData.city === "") {
             enqueueSnackbar("Choose the State and city", {
                 variant: "warning"
             });
             return;
         }
 
-        if(state === "" || city === "") {
-            const msgVal = state === "" ? "State" : "City";
+        if(stateData.state === "" || cityData.city === "") {
+            const msgVal = stateData.state === "" ? "State" : "City";
             enqueueSnackbar(`Choose the ${msgVal}`, {
                 variant: "warning"
             });
@@ -100,18 +183,18 @@ const SearchSection = ({ setResultsList, setCityName, resultsList }) => {
 
         if(path === "/") {
             const locationData = {
-                stateName: state,
-                cityName: city
+                stateName: stateData.state,
+                cityName: cityData.city
             };
 
             navigate("/searchresults", { state: locationData });    //key state is of useLocation()
         } else {
 
-            setCityName(city);
+            setCityName(cityData.city);
 
             async function fetchData() {
                 try {
-                    const url = `https://meddata-backend.onrender.com/data?state=${state}&city=${city}`;
+                    const url = `https://meddata-backend.onrender.com/data?state=${stateData.state}&city=${cityData.city}`;
                     const res = await fetch(url);
                     const data = await res.json();
                     setResultsList(data);
@@ -136,29 +219,35 @@ const SearchSection = ({ setResultsList, setCityName, resultsList }) => {
                             className={styles.searchbar}
                             type="text"
                             placeholder="Search By Hospital"
+                            value={hospName}
+                            ref={inputRef}
+                            name="hospitalSearch"
+                            onChange={handleHospChange}
+                            onClick={toggleDropDown}
                         />
-                        {/* changes start */}
-                        <select 
-                            className={styles.searchbar}
-                            name="hospital"
-                            value={""}
-                            onChange={()=>{}}
+                        <div 
+                            className={`${styles.drop_down_wrapper} ${
+                                isDropDownOpen ? styles.drop_down_wrapper_open : ""
+                            }`}
                         >
-                            <option></option>
                             {
                                 resultsList.map((hospital) => {
+                                    const name = hospital.hospitalData["Hospital Name"];
                                     return (
-                                        <option 
+                                        <div 
+                                            className={`${styles.drop_down_option} ${
+                                                name === hospSelectedVal ? styles.selected : '' 
+                                            }`}
                                             key={hospital.hospitalData["Provider ID"]} 
-                                            value={hospital.hospitalData["Hospital Name"]}
+                                            value={name}
+                                            onClick={() => handleHospSelectChange(name)}
                                         >
-                                            {hospital.hospitalData["Hospital Name"]}
-                                        </option>
+                                            {name}
+                                        </div>
                                     );
                                 })
                             }
-                        </select>
-                        {/* changes end */}
+                        </div>
                     </div>
                     <Button
                         className={styles.button_mui}
@@ -168,7 +257,7 @@ const SearchSection = ({ setResultsList, setCityName, resultsList }) => {
                             background: "var(--color-blue-secondary)",
                             textTransform: "none",
                         }}
-                        onClick={handleSearchSubmit}
+                        onClick={handleHospitalSearch}
                     >
                         Search
                     </Button>
@@ -189,24 +278,35 @@ const SearchSection = ({ setResultsList, setCityName, resultsList }) => {
                         className={styles.searchbar}
                         type="text"
                         placeholder="State"
-                    />
-                    {/* changes start */}
-                    <select 
-                        className={styles.searchbar}
+                        value={stateData.state}
+                        ref={inputRef}
                         name="state"
-                        value={state}
-                        onChange={handleStateChange}
+                        onChange={(e) => handleStateChange("state", e.target.value)}
+                        onClick={toggleDropDown}
+                    />
+                    <div 
+                        className={`${styles.drop_down_wrapper} ${
+                            isDropDownOpen ? styles.drop_down_wrapper_open : ""
+                        }`}
                     >
-                        <option></option>
                         {
                             statesList.map((state) => {
                                 return (
-                                    <option key={state} value={state}>{state}</option>
+                                    <div 
+                                        className={`${styles.drop_down_option} ${
+                                            state === stateData.stateSelectedVal ? styles.selected : '' 
+                                        }`}
+                                        key={state} 
+                                        value={state}
+                                        name="stateSelectedVal"
+                                        onClick={() => handleStateChange("stateSelectedVal", state)}
+                                    >
+                                        {state}
+                                    </div>
                                 );
                             })
                         }
-                    </select>
-                    {/* changes end */}
+                    </div>
                 </div>
                 <div className={styles.searchbar_div}>
                     <SearchIcon />
@@ -214,24 +314,35 @@ const SearchSection = ({ setResultsList, setCityName, resultsList }) => {
                         className={styles.searchbar}
                         type="text"
                         placeholder="City"
-                    />
-                    {/* changes start */}
-                    <select 
-                        className={styles.searchbar}
+                        value={cityData.city}
+                        ref={inputRefCity}
                         name="city"
-                        value={city}
-                        onChange={handleCityChange}
+                        onChange={(e) => handleCityChange("city", e.target.value)}
+                        onClick={toggleDropDownCity}
+                    />
+                    <div 
+                        className={`${styles.drop_down_wrapper} ${
+                            isCityDropDownOpen ? styles.drop_down_wrapper_open : ""
+                        }`}
                     >
-                        <option></option>
                         {
                             citiesList.map((city) => {
                                 return (
-                                    <option key={city} value={city}>{city}</option>
+                                    <div 
+                                        className={`${styles.drop_down_option} ${
+                                            city === cityData.citySelectedVal ? styles.selected : '' 
+                                        }`}
+                                        key={city} 
+                                        value={city}
+                                        name="citySelectedVal"
+                                        onClick={() => handleCityChange("citySelectedVal", city)}
+                                    >
+                                        {city}
+                                    </div>
                                 );
                             })
                         }
-                    </select>
-                    {/* changes end */}
+                    </div>
                 </div>
                 <Button
                     className={styles.button_mui}
