@@ -11,6 +11,13 @@ import Doctor from "../../assets/Doctor.png";
 import Hospital from "../../assets/Hospital.png";
 import DrugStore from "../../assets/Drugstorelabs.png";
 
+/**
+ * Card component: for the category cards present below the search bar, 
+ * which are present on Home pages search component
+ * @param {image} Icon 
+ * @param {string} title
+ * @returns
+ */
 const Card = ({ Icon, title }) => {
 
     return (
@@ -21,7 +28,18 @@ const Card = ({ Icon, title }) => {
     );
 };
 
-// resultsList contains bookings
+/**
+ * SearchSection Component: Search section for all pages
+ * @param {Function} setResultsList
+ *  for setting the list of available medical centers in search state & city
+ * 
+ * @param {Function} setCityName
+ * for setting the name of currently selected city
+ * 
+ * @param {Array<Object>} resultsList
+ * array of bookings done by user, use here for display it to search dropdown
+ * @returns 
+ */
 const SearchSection = ({ setResultsList, setCityName, resultsList }) => {
     const location = useLocation();
     const path = location.pathname;
@@ -29,14 +47,18 @@ const SearchSection = ({ setResultsList, setCityName, resultsList }) => {
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
 
-    const inputRef = useRef(null);  //use for state search and hospital search(on bookings page)
+    //use for state search and hospital search(on bookings page)
+    const inputRef = useRef(null);  
     const inputRefCity = useRef(null);
+
+    //use for city search
     const [isDropDownOpen, setIsDropDownOpen] = useState(false);
     const [isCityDropDownOpen, setIsCityDropDownOpen] = useState(false);
 
     const [statesList, setStatesList] = useState([]);
     const [citiesList, setCitiesList] = useState([]);
 
+    // for input value and dropdown value
     const [stateData, setStateData] = useState({
         state: '',
         stateSelectedVal: ''
@@ -45,11 +67,11 @@ const SearchSection = ({ setResultsList, setCityName, resultsList }) => {
         city: '',
         citySelectedVal: ''
     });
-console.log("cityData", cityData)
-    // for bookings search
+
+    // for bookings search and dropdown
     const [hospName, setHospName] = useState('');
     const [hospSelectedVal, setHospSelectedVal] = useState('');
-    const [currFilterHospitals, setCurrFilterHospitals] = useState([]); //for showing results based on search
+    // const [currFilterHospitals, setCurrFilterHospitals] = useState([]); //for showing results based on search
 
 
     useEffect(() => {
@@ -66,8 +88,6 @@ console.log("cityData", cityData)
             }
         }
         fetchStates();
-
-        setCurrFilterHospitals(resultsList);
 
         document.addEventListener("click", toggleDropDown);
         document.addEventListener("click", toggleDropDownCity);
@@ -97,15 +117,18 @@ console.log("cityData", cityData)
         
     }, [stateData]);
 
+    // handling state search & hospital search(bookings page)
     function toggleDropDown(e) { 
         setIsDropDownOpen(e && e.target === inputRef.current);
     }
 
+    // handling city search
     function toggleDropDownCity(e) { 
         setIsCityDropDownOpen(e && e.target === inputRefCity.current);
     }
 
-    console.log(statesList);
+    // console.log(statesList);
+
     const handleStateChange = (name, value) => {
         setCityData({
             city: '',
@@ -149,7 +172,8 @@ console.log("cityData", cityData)
         setHospSelectedVal(hospName);
         setIsDropDownOpen(false);
     };
-    // console.log('1*/',currFilterHospitals, hospName)
+
+    //handles search button of bookings page
     const handleHospitalSearch = () => {
         if(hospName === "" && hospSelectedVal === "") {
             enqueueSnackbar("Choose the Hospital", {
@@ -158,6 +182,8 @@ console.log("cityData", cityData)
             return;
         }
 
+        // filter booking list on basis of search inputs
+
         // const currentHosp = resultsList.filter((hosp) => { 
         //    return hosp.hospitalData["Hospital Name"].toLowerCase().includes(hospName.toLowerCase());
         // });
@@ -165,6 +191,7 @@ console.log("cityData", cityData)
         // setCurrFilterHospitals(currentHosp);
     }
 
+    // handles search button/submit of state and city search
     const handleSearchSubmit = () => {
         if(stateData.state === "" && cityData.city === "") {
             enqueueSnackbar("Choose the State and city", {
@@ -189,7 +216,7 @@ console.log("cityData", cityData)
 
             navigate("/searchresults", { state: locationData });    //key state is of useLocation()
         } else {
-
+            
             setCityName(cityData.city);
 
             async function fetchData() {
@@ -204,9 +231,9 @@ console.log("cityData", cityData)
             }
             fetchData();
         }
-
     };
 
+    // for the search bar of booking page
     if(path === '/bookings') {
         return (
             <div className={` ${styles.search_section_wrapper_bookings} 
@@ -266,12 +293,14 @@ console.log("cityData", cityData)
         );
     }
 
+    // handling Home and Result page
     return (
         <div className={` ${styles.search_section_wrapper} 
             ${path === "/" ? styles.search_section_postion_home : styles.search_section_postion_other_pages} 
             `}
         >
             <div className={styles.searchbars_button_wrapper}>
+                {/* state input and dropdown */}
                 <div className={styles.searchbar_div}>
                     <SearchIcon />
                     <input 
@@ -308,6 +337,7 @@ console.log("cityData", cityData)
                         }
                     </div>
                 </div>
+                {/* city input and dropdown */}
                 <div className={styles.searchbar_div}>
                     <SearchIcon />
                     <input 

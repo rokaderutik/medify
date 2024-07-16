@@ -3,6 +3,13 @@ import { useLocation, useNavigate } from "react-router";
 import styles from "./Navbar.module.css";
 import logo from "../../assets/logo.png";
 
+/**
+ * ActionButton component: navbar action buttons
+ * @param {string} text
+ * @param {Function} onClick
+ * not used as this buttons are static 
+ * @returns 
+ */
 const ActionButton = ({ text, onClick }) => {
 
     return (
@@ -10,6 +17,11 @@ const ActionButton = ({ text, onClick }) => {
     );
 };
 
+
+/**
+ * Navbar component
+ * @returns 
+ */
 const Navbar = () => {
     const location = useLocation();
     const navigate = useNavigate();

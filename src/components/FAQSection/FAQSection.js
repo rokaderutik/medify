@@ -4,6 +4,10 @@ import { ReactComponent as HeartIcon } from "../../assets/FAQ_heart.svg";
 import { ReactComponent as SmileIcon } from "../../assets/FAQ_smile.svg";
 import { ReactComponent as PlusIcon } from "../../assets/FAQ_plus_icon.svg";
 
+/**
+ * FAQSection component
+ * @returns 
+ */
 export default function FAQSection() {
 
     return (

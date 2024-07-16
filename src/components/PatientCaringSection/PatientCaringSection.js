@@ -4,6 +4,11 @@ import patient_caring_2 from "../../assets/patient_caring_2.png";
 import { BiSolidPhoneCall } from "react-icons/bi";
 import { ReactComponent as TrueIcon } from "../../assets/true_icon.svg";
 
+
+/**
+ * PatientCaringSection component
+ * @returns 
+ */
 export default function PatientCaringSection() {
 
     return (

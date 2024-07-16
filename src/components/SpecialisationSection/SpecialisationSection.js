@@ -8,6 +8,13 @@ import HeartRateMonitor from "../../assets/Heart Rate Monitor.png";
 import Stethoscope from "../../assets/Stethoscope.png";
 import { Button } from "@mui/material";
 
+
+/**
+ * Card component
+ * @param {string} Icon
+ * @param {string} title 
+ * @returns 
+ */
 const Card = ({ Icon, title }) => {
 
     return (
@@ -18,6 +25,10 @@ const Card = ({ Icon, title }) => {
     );
 };
 
+/**
+ * SpecialisationSection component
+ * @returns 
+ */
 const SpecialisationSection = () => {
 
     return (

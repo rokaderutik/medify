@@ -7,6 +7,11 @@ import { ReactComponent as AppleStore } from "../../assets/apple_store.svg";
 import { ReactComponent as MobileBody } from "../../assets/mobile_body.svg";
 import { ReactComponent as MobileContent } from "../../assets/mobile_inside.svg";
 
+
+/**
+ * DownloadAppSection component
+ * @returns 
+ */
 export default function DownloadAppSection() {
     const [inputData, setInputData] = useState('');
 

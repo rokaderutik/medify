@@ -11,6 +11,17 @@ import { useRef, useState } from "react";
 import { useSnackbar } from "notistack";
 import { useLocation } from "react-router";
 
+
+/**
+ * SlotButton Component: Button of booking forms time slot
+ * @param {string} time
+ * 
+ * @param {Function} setBookingData
+ * for setting booking data if any slot is choose
+ * 
+ * @param {object} bookingData
+ * @returns 
+ */
 function SlotButton({ time, setBookingData, bookingData }) {
     function handleChange(name, value) {
         setBookingData({
@@ -29,6 +40,16 @@ function SlotButton({ time, setBookingData, bookingData }) {
     );
 }
 
+
+/**
+ * BookingCard Component: for booking details, dates and available slots
+ * @param {Object} bookingData
+ * object for storing data of booking, feilds: hospital data, time slot, date
+ * 
+ * @param {Function} setBookingData
+ * for updating booking data if date and time choose
+ * @returns 
+ */
 const BookingCard = ({ bookingData, setBookingData }) => {
 
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -37,6 +58,7 @@ const BookingCard = ({ bookingData, setBookingData }) => {
     const afternoonSlots = ['12:00 PM', '12:30 PM', '01:30 PM', '02:00 PM', '02:30 PM'];
     const eveningSlots = ['06:00 PM', '06:30 PM', '07:00 PM', '07:30 PM']
 
+    // creating array of one week
     const dateList = new Array(7);  
     for(let i = 0; i < 7; i++) {
         let currentDay = new Date();
@@ -166,6 +188,24 @@ const BookingCard = ({ bookingData, setBookingData }) => {
     );
 }
 
+
+/**
+ * ResultCard Component: Hospital card, use for all pages
+ * @param {Function} setBookingsList 
+ * function for updating booking list, if booking done
+ * 
+ * @param {Array<Object>} bookingsList
+ * 
+ * @param {Object} hospitalData
+ * object of all data associated with single hospital
+ * 
+ * @param {string} bookedDate
+ * for booking page, to displaying a booked date for visit 
+ * 
+ * @param {string} bookedTime
+ * for booking page, to displaying a booked time for visit 
+ * @returns 
+ */
 const ResultCard = ({ setBookingsList, bookingsList, hospitalData, bookedDate, bookedTime }) => {
     const { pathname } = useLocation();
     const { enqueueSnackbar } = useSnackbar();
@@ -181,12 +221,14 @@ const ResultCard = ({ setBookingsList, bookingsList, hospitalData, bookedDate, b
     // to open booking section
     const [isSlotBookingOpen, setIsSlotBookingOpen] = useState(false);
 
+    //for storing booking date and time, if booking done for this hospital card
     const [bookingData, setBookingData] = useState({
         hospitalData: hospitalData,
         date: '',
         time: ''
-    }); //for storing booking date and time
+    }); 
 
+    // making booking
     function handleBooking() {
         if(bookingData.date === '' && bookingData.time === '') {
             enqueueSnackbar("Select the date & time", { variant: "warning" });
@@ -204,6 +246,7 @@ const ResultCard = ({ setBookingsList, bookingsList, hospitalData, bookedDate, b
             ${bookingData.date.getFullYear()}`, 
             { variant: "success" }
         );
+
         setBookingsList([
             ...bookingsList,
             bookingData
@@ -229,14 +272,16 @@ const ResultCard = ({ setBookingsList, bookingsList, hospitalData, bookedDate, b
                     <h3 className={styles.card_name}>{hosName}</h3>
                     <h4 className={styles.card_address}>{hosAdd}, {city}, {state}-{zipCode}.</h4>
                     <p className={styles.card_para}>Smilessence Center for Advanced Dentistry + 1 more</p>
+                    
                     {
                         pathname === '/searchresults' &&
                         <p className={styles.card_para_consulation}>
                             <span className={styles.free_span}>FREE </span>
-                            <span className={styles.amount_span}>₹500 </span>
+                            <span className={styles.amount_span}><s>₹500</s> </span>
                             Consultation fee at clinic
                         </p>
                     }
+
                     <div className={styles.rating}>
                         <LikeThumb />
                         <span>{rating}</span>
@@ -296,9 +341,25 @@ const ResultCard = ({ setBookingsList, bookingsList, hospitalData, bookedDate, b
     );
 };
 
+
+/**
+ * SearchResultSection Component: component contains all hospital card list
+ * @param {Array<Object>} resultsList 
+ * array containing data of all availbale hospitals in selected location
+ * 
+ * @param {string} cityName
+ * 
+ * @param {Function} setBookingsList
+ * for updating bookings list
+ * 
+ * @param {Array<Object>} bookingsList
+ * list of bookings done
+ * @returns 
+ */
 const SearchResultSection = ({ resultsList, cityName, setBookingsList, bookingsList }) => {
     const { pathname } = useLocation();
     
+    // for Booking page
     if(pathname === '/bookings') {
         return (
             <div className={styles.section_wrapper}>
@@ -309,16 +370,27 @@ const SearchResultSection = ({ resultsList, cityName, setBookingsList, bookingsL
                     <div className={styles.card_list_and_add_wrapper}>
                         <div className={styles.list_wrapper}>
                             {
-                                resultsList.map((item) => {
-                                    return (
-                                        <ResultCard 
-                                            key={item.hospitalData["Provider ID"]}
-                                            hospitalData={item.hospitalData}
-                                            bookedDate={item.date}
-                                            bookedTime={item.time}
-                                        />
-                                    );
-                                })
+                                resultsList.length > 0 ? (
+                                    resultsList.map((item) => {
+                                        return (
+                                            <ResultCard 
+                                                key={item.hospitalData["Provider ID"]}
+                                                hospitalData={item.hospitalData}
+                                                bookedDate={item.date}
+                                                bookedTime={item.time}
+                                            />
+                                        );
+                                    })
+                                ) : (
+                                    <div style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        fontSize: '24px'
+                                    }}>
+                                        No Any Booking Done.
+                                    </div>
+                                )
                             }
                             
                         </div>
@@ -331,6 +403,7 @@ const SearchResultSection = ({ resultsList, cityName, setBookingsList, bookingsL
         );
     }
 
+    // for Search Result page
     return (
         <div className={styles.section_wrapper}>
             <div className={styles.top_blue_container}></div>
@@ -343,16 +416,28 @@ const SearchResultSection = ({ resultsList, cityName, setBookingsList, bookingsL
                 <div className={styles.card_list_and_add_wrapper}>
                     <div className={styles.list_wrapper}>
                         {
-                            resultsList.map((item) => {
-                                return (
-                                    <ResultCard 
-                                        key={item["Provider ID"]}
-                                        setBookingsList={setBookingsList}
-                                        bookingsList={bookingsList}
-                                        hospitalData={item}
-                                    />
-                                );
-                            })
+                            resultsList.length > 0 ? (
+                                resultsList.map((item) => {
+                                    return (
+                                        <ResultCard 
+                                            key={item["Provider ID"]}
+                                            setBookingsList={setBookingsList}
+                                            bookingsList={bookingsList}
+                                            hospitalData={item}
+                                        />
+                                    );
+                                })
+                            ) : (
+                                <div style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    fontSize: '24px',
+                                    height: '70%'
+                                }}>
+                                    No Any Hospital Available.
+                                </div>
+                            )
                         }
                         
                     </div>

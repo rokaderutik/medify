@@ -6,19 +6,27 @@ import FAQSection from "../../components/FAQSection/FAQSection";
 import DownloadAppSection from "../../components/DownloadAppSection/DownloadAppSection";
 import Footer from "../../components/Footer/Footer";
 import SearchResultSection from "../../components/SearchResultSection/SearchResultSection";
+import { useSnackbar } from "notistack";
 
+/**
+ * SearchResults component/page
+ * @returns 
+ */
 export default function SearchResults() {
     const { state } = useLocation();    //locations object state, not the state value
     const navigate = useNavigate();
+    const { enqueueSnackbar } = useSnackbar();
 
-    const [stateName, setStateName] = useState(state ? state.stateName : '');
+    // const [stateName, setStateName] = useState(state ? state.stateName : '');
     const [cityName, setCityName] = useState(state ? state.cityName : '');
 
+    // for hospital list in city
     const [resultsList, setResultsList] = useState([]);
 
-    // set booking list
+    // set bookings list
     const [bookingsList, setBookingsList] = useState([]);
     
+    //set bookings list to local storage, and update when list updates
     useEffect(() => {
         localStorage.setItem('bookingsList', JSON.stringify(bookingsList));
     }, [bookingsList]);
@@ -31,7 +39,7 @@ export default function SearchResults() {
             async function fetchData() {
                 const { stateName, cityName} = state;
                 setCityName(cityName);
-                setStateName(stateName);
+                // setStateName(stateName);
 
                 try {
                     const url = `https://meddata-backend.onrender.com/data?state=${stateName}&city=${cityName}`;
@@ -39,7 +47,9 @@ export default function SearchResults() {
                     const data = await res.json();
                     setResultsList(data);
                 } catch(e) {
-                    
+                    enqueueSnackbar("Failed to fetch cities: ", {
+                        variant: "error"
+                    });
                 }
             }
 

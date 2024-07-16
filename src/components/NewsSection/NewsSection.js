@@ -2,6 +2,16 @@ import styles from "./NewsSection.module.css";
 import auth_image from "../../assets/author_icon.png";
 import blog_image from "../../assets/blog_image.png";
 
+/**
+ * Card component: news card
+ * @param {string} category
+ * @param {string} date
+ * @param {string} heading
+ * @param {string} image
+ * @param {string} auth_name
+ * @param {string} auth_image
+ * @returns 
+ */
 const Card = ({ category, date, heading, image, auth_name, auth_image }) => {
 
     return (
@@ -21,6 +31,10 @@ const Card = ({ category, date, heading, image, auth_name, auth_image }) => {
     );
 }
 
+/**
+ * NewsSection component
+ * @returns 
+ */
 export default function NewsSection() {
     const newsList = [
         {

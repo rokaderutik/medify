@@ -1,4 +1,4 @@
-import { json, useLocation } from "react-router";
+import { useLocation } from "react-router";
 import { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import SearchSection from "../../components/SearchSection/SearchSection";
@@ -6,6 +6,12 @@ import SearchResultSection from "../../components/SearchResultSection/SearchResu
 import DownloadAppSection from "../../components/DownloadAppSection/DownloadAppSection";
 import Footer from "../../components/Footer/Footer";
 
+
+/**
+ * MyBookings Component/Page
+ *
+ * @returns 
+ */
 export default function MyBookings() {
     const [bookingsList, setBookingsList] = useState([]);
 

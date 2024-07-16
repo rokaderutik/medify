@@ -4,6 +4,14 @@ import hospital_icon from "../../assets/hospital_icon.png";
 import doctor_icon from "../../assets/doctor_icon.png";
 import lab_icon from "../../assets/lab_icon.png";
 
+/**
+ * Card component
+ * @param {string} icon
+ * @param {Color} bgColor
+ * @param {string} number
+ * @param {string} text  
+ * @returns 
+ */
 const Card = ({ icon, bgColor, number, text }) => {
 
     return (
@@ -17,6 +25,11 @@ const Card = ({ icon, bgColor, number, text }) => {
     );
 };
 
+
+/**
+ * OurFamiliesSection component
+ * @returns 
+ */
 export default function OurFamiliesSection() {
 
     return (

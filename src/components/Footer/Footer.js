@@ -5,6 +5,10 @@ import { ReactComponent as Twitter } from "../../assets/twitter.svg";
 import { ReactComponent as Youtube } from "../../assets/youTube.svg";
 import { ReactComponent as Pinterst } from "../../assets/pinterest.svg";
 
+/**
+ * Footer component
+ * @returns 
+ */
 export default function Footer() {
 
     return (

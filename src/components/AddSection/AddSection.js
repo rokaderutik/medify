@@ -10,6 +10,10 @@ import 'swiper/css/navigation';
 
 import { Pagination, Navigation, Autoplay } from 'swiper/modules';
 
+/**
+ * AddSection Component: displaying add/offer carousel
+ * @returns 
+ */
 export default function AddSection() {
     const addList = [add1, add2, add1, add2];
 
@@ -43,10 +47,6 @@ export default function AddSection() {
                     })
                 }
             </Swiper>
-            
-            {/* <div className={styles.swiper_buttons}>
-                    swiper buttons
-            </div> */}
         </div>
     );
 }

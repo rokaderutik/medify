@@ -11,6 +11,13 @@ import 'swiper/css/pagination';
 
 import { Pagination, Autoplay } from 'swiper/modules';
 
+/**
+ * Card component: carousel item/card
+ * @param {string} image
+ * @param {string} name
+ * @param {string} specialisation 
+ * @returns 
+ */
 const Card = ({ image, name, specialisation }) => {
     return (
         <div className={styles.card_wrapper}>
@@ -23,6 +30,11 @@ const Card = ({ image, name, specialisation }) => {
     );
 };
 
+
+/**
+ * MedicalSpecialistSection component: carousel of specialist doctors
+ * @returns 
+ */
 const MedicalSpecialistSection = () => {
     const doctorList = [
         {

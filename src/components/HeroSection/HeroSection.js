@@ -2,6 +2,10 @@ import styles from "./HeroSection.module.css";
 import HeroImage from "../../assets/hero_image_Dr.png";
 import { Button } from "@mui/material";
 
+/**
+ * HeroSection component
+ * @returns 
+ */
 export default function HeroSection() {
 
     return (
