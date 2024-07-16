@@ -7,7 +7,7 @@ import { ReactComponent as LikeThumb } from "../../assets/like_thumb.svg";
 import add_baner from "../../assets/results_add_baner.png";
 import { ReactComponent as LeftArrow } from "../../assets/leftArrow.svg";
 import { ReactComponent as RightArrow } from "../../assets/rightArrow.svg";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useSnackbar } from "notistack";
 import { useLocation } from "react-router";
 
@@ -251,6 +251,8 @@ const ResultCard = ({ setBookingsList, bookingsList, hospitalData, bookedDate, b
             ...bookingsList,
             bookingData
         ]);
+
+        setIsSlotBookingOpen(false);
     }
 
     function formatDate(date) {
