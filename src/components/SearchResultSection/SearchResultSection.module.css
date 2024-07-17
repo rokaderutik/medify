@@ -48,6 +48,7 @@
     margin-top: 16px;
     gap: 16px;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .list_wrapper {
@@ -314,4 +315,13 @@
     background-color: #01A400;
     color: var(--color-white);
     border-color: #01A400;
+}
+
+@media screen and (max-width: 1150px) {
+    .list_wrapper {
+        width: 100%;
+    }
+    .add_baner {
+        width: 100%;
+    }
 }
