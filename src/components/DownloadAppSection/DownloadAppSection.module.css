@@ -41,10 +41,12 @@
 .mobile_below {
     z-index: 5;
     height: 450px;
+    /* height: 28.125em; */
 }
 
 .mobile_above {
     height: 420px;
+    /* height: 26.25em; */
     position: absolute;
     top: 15%;
     right: 33%;
@@ -182,6 +184,21 @@ input[type=number]{
 @media screen and (max-width: 1050px) {
     .section_wrapper {
         font-size: 12px;
-        justify-content: space-between;
+        flex-wrap: wrap;
+        height: max-content;
+        /* justify-content: center; */
+    }
+    .images_section {
+        width: 100%;
+        margin-left: 25%;
+        margin-right: 25%;
+        /* align-items: center; */
+        /* justify-content: center; */
+    }
+    .text_section {
+        width: 100%;
+        margin-left: 25%;
+        margin-right: 25%;
+        /* align-items: center; */
     }
 }

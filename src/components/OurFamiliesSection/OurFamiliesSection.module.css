@@ -118,8 +118,19 @@
 @media screen and (max-width: 1050px) {
     .cards_wrapper {
         font-size: 12px;
+        width: 50%;
     }
     .section_wrapper {
-        font-size: 15px;
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .cards_wrapper {
+        width: 100%;
+        justify-content: space-evenly;
+    }
+    .text_wrapper {
+        width: 100%;
     }
 }

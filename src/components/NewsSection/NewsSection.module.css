@@ -30,6 +30,7 @@
     justify-content: space-between;
     gap: 1.5em;
     margin-top: 1.875em;
+    flex-wrap: wrap;
 }
 
 /* single card */
@@ -116,4 +117,20 @@
         height: 338px;
         width: 270px;
     } */
+}
+
+@media screen and (max-width: 900px) {
+    .section_wrapper {
+        font-size: 10px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .section_wrapper {
+        font-size: 10px;
+    }
+
+    .cards_wrapper {
+        justify-content: center;
+    }
 }

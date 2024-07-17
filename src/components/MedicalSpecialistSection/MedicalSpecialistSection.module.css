@@ -1,7 +1,7 @@
 .section_wrapper {
     margin: 30px 5vw 20px;
     background-color: var(--color-white);
-    height: 620px;
+    /* height: 620px; */
 }
 
 .heading {
@@ -25,7 +25,8 @@
 
 .card_wrapper {
     /* height: 500px; */
-    width: 350px;
+    font-size: 16px;
+    width: 21.875em;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -33,12 +34,12 @@
 }
 
 .image_wrapper {
-    height: 390px;
+    height: 24.375em;
     width: 100%;
     background: linear-gradient(144.2deg, #E1F3FF 0%, #2AA7FF 100%);
     border-radius: 50% 50% 4px 4px;
     box-sizing: border-box;
-    padding: 30px 16px 0px;
+    padding: 1.875em 1em 0px;
     box-shadow: 0px 15px 55px -10px #00000017;
 }
 
@@ -51,15 +52,30 @@
 }
 
 .card_wrapper h4 {
-    margin: 10px 0px;
-    font-size: 24px;
+    margin: 0.42em 0px;
+    font-size: 1.5em;
     font-weight: 400;
     color: var(--color-blue-dark2);
 }
 
 .card_wrapper p {
     margin: 0px;
-    font-size: 16px;
+    font-size: 1em;
     font-weight: 500;
     color: var(--color-blue-primary);
+}
+
+@media screen and (max-width: 1250px) {
+    .card_wrapper {
+        font-size: 13.5px;
+    }
+}
+
+@media screen and (max-width: 1050px) {
+    .card_wrapper {
+        font-size: 10px;
+    }
+    .heading {
+        font-size: 40px;
+    }
 }

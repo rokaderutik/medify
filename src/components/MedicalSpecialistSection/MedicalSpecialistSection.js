@@ -72,6 +72,19 @@ const MedicalSpecialistSection = () => {
                 <Swiper
                     spaceBetween={50}
                     slidesPerView={3}
+                    breakpoints={{
+                        0: {
+                            slidesPerView: 1
+                        },
+                        500: {
+                          // width: 576,
+                          slidesPerView: 2,
+                        },
+                        800: {
+                          // width: 768,
+                          slidesPerView: 3,
+                        },
+                      }}
                     loop={true}
                     autoplay={{
                         delay: 2000,

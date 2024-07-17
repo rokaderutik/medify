@@ -14,6 +14,7 @@
     justify-content: space-between;
     padding-bottom: 3em;
     box-sizing: border-box;
+    flex-wrap: wrap;
 }
 
 .first_half {
@@ -114,5 +115,20 @@ li::before {
 @media screen and (max-width: 1050px) {
     .setion_wrapper {
         font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .all_actions_wrapper {
+        height: 24em;
+        row-gap: 2em;
+    }
+    .first_half {
+        width: 100%;
+        height: 50%;
+    }
+    .second_half {
+        width: 100%;
+        height: 50%;
     }
 }

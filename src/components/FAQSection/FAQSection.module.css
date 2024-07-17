@@ -6,6 +6,7 @@
     justify-content: start;
     flex-direction: column;
     background-color: var(--color-white);
+    flex-wrap: wrap;
 
     font-size: 16px;
 }
@@ -157,5 +158,26 @@
     }
     .section_wrapper {
         font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .image_section {
+        width: 100%;
+        margin-left: 25%;
+        margin-right: 25%;
+    }
+    .smile_card {
+        left: -15%;
+    }
+    .question_section {
+        width: 100%;
+    }
+    .question {
+        padding-left: 8%;
+        padding-right: 8%;
+    }
+    .heading {
+        font-size: 2em;
     }
 }

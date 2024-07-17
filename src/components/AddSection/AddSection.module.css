@@ -36,3 +36,21 @@
 /* .swiper-pagination {
     position: static !important;
 } */
+
+@media screen and (max-width: 650px) {
+    .add_section_wrapper {
+        margin-top: 40vh;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .add_section_wrapper {
+        margin-top: 50vh;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .add_section_wrapper {
+        margin-top: 60vh;
+    }
+}
